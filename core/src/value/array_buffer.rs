@@ -90,6 +90,20 @@ impl<'js> ArrayBuffer<'js> {
         })))
     }
 
+    /// Create array buffer from slice
+    pub fn new_borrow<'src, T: Copy>(ctx: Ctx<'js>, src: &'src [T]) -> Result<Self> {
+        let src = src.as_ref();
+        let ptr = src.as_ptr();
+        let size = core::mem::size_of_val(src);
+
+        Ok(Self(Object(unsafe {
+            let val =
+                qjs::JS_NewArrayBuffer(ctx.as_ptr(), ptr as _, size as _, None, size as _, false);
+            ctx.handle_exception(val)?;
+            Value::from_js_value(ctx.clone(), val)
+        })))
+    }
+
     /// Get the length of the array buffer in bytes.
     pub fn len(&self) -> usize {
         Self::get_raw(&self.0).expect("Not an ArrayBuffer").len

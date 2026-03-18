@@ -1,0 +1,14 @@
+[package]
+name = "borrow-array-buffer"
+version = "0.1.0"
+edition = "2021"
+publish = false
+
+[[bin]]
+name = "borrow-array-buffer"
+path = "src/main.rs"
+
+[dependencies.rquickjs]
+path = "../.."
+default-features = false
+features = ["rust-alloc", "std"]

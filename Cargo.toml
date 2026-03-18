@@ -22,6 +22,7 @@ members = [
   "examples/import-attributes",
   "examples/rquickjs-cli",
   "examples/class-methods",
+  "examples/borrow-array-buffer",
 ]
 
 [workspace.dependencies]

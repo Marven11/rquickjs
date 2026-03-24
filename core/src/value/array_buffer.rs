@@ -100,6 +100,7 @@ impl<'js> ArrayBuffer<'js> {
             let val =
                 qjs::JS_NewArrayBuffer(ctx.as_ptr(), ptr as _, size as _, None, size as _, false);
             ctx.handle_exception(val)?;
+            qjs::JS_SetImmutableArrayBuffer(val, true);
             Value::from_js_value(ctx.clone(), val)
         })))
     }
